@@ -1,0 +1,177 @@
+
+
+#include <iostream>
+
+#include <vector>
+
+#include <algorithm>
+
+
+
+using namespace std;
+
+
+
+struct Process {
+
+    int id;
+
+    int arrivalTime;
+
+    int burstTime;
+
+    int remainingTime;
+
+    int waitingTime;
+
+    int turnaroundTime;
+
+};
+
+
+
+bool compareArrivalTime(const Process &a, const Process &b) {
+
+    return a.arrivalTime < b.arrivalTime;
+
+}
+
+
+
+bool compareRemainingTime(const Process &a, const Process &b) {
+
+    return a.remainingTime > b.remainingTime;
+
+}
+
+
+
+void calculateWaitingTimeTurnaroundTime(vector<Process> &processes) {
+
+    int currentTime = 0;
+
+    int completed = 0;
+
+    int n = processes.size();
+
+    vector<bool> executed(n, false);
+
+
+
+    while (completed < n) {
+
+        int idx = -1;
+
+        int maxRemainingTime = INT_MIN;
+
+
+
+        for (int i = 0; i < n; i++) {
+
+            if (!executed[i] && processes[i].arrivalTime <= currentTime && processes[i].burstTime > maxRemainingTime) {
+
+                idx = i;
+
+                maxRemainingTime = processes[i].burstTime;
+
+            }
+
+        }
+
+
+
+        if (idx == -1) {
+
+            currentTime++;
+
+        } else {
+
+            processes[idx].remainingTime--;
+
+            currentTime++;
+
+
+
+            if (processes[idx].remainingTime == 0) {
+
+                completed++;
+
+                executed[idx] = true;
+
+                processes[idx].waitingTime = currentTime - processes[idx].arrivalTime - processes[idx].burstTime;
+
+                processes[idx].turnaroundTime = processes[idx].waitingTime + processes[idx].burstTime;
+
+            }
+
+        }
+
+    }
+
+}
+
+
+
+void displayProcesses(const vector<Process> &processes) {
+
+    cout << "ID\tArrival Time\tBurst Time\tWaiting Time\tTurnaround Time\n";
+
+    for (const Process &p : processes) {
+
+        cout << p.id << "\t" << p.arrivalTime << "\t\t" << p.burstTime << "\t\t" << p.waitingTime << "\t\t" << p.turnaroundTime << "\n";
+
+    }
+
+}
+
+
+
+int main() {
+
+    int n;
+
+    cout << "Enter the number of processes: ";
+
+    cin >> n;
+
+
+
+    vector<Process> processes(n);
+
+
+
+    cout << "Enter arrival time and burst time for each process:\n";
+
+    for (int i = 0; i < n; i++) {
+
+        processes[i].id = i + 1;
+
+        cout << "Process " << i + 1 << " arrival time: ";
+
+        cin >> processes[i].arrivalTime;
+
+        cout << "Process " << i + 1 << " burst time: ";
+
+        cin >> processes[i].burstTime;
+
+        processes[i].remainingTime = processes[i].burstTime;
+
+    }
+
+
+
+    sort(processes.begin(), processes.end(), compareArrivalTime);
+
+    calculateWaitingTimeTurnaroundTime(processes);
+
+
+
+    cout << "\nLRTF Scheduling Table:\n";
+
+    displayProcesses(processes);
+
+
+
+    return 0;
+
+}
