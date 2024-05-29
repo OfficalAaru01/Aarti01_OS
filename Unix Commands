@@ -1,0 +1,50 @@
+UNIX Command
+
+Unix commands, which are the instructions or programs used to interact with a Unix-based operating system, including systems like Linux and macOS, through the command line interface. These commands allow users to perform tasks such as managing files, directories, processes, and more. Here’s a brief overview of some commonly used Unix commands:
+
+1.	mkdir - Creates a new directory.
+Example: mkdir new_folder creates a new directory called new_folder
+
+
+
+
+
+
+
+
+
+2.	ls - Lists the contents of a directory.
+Example: ls lists all files and directories in the current directory.
+Example: ls -l lists in long format with detailed information.
+
+
+
+
+
+
+3.	cd - Changes the current directory.
+Example: cd Documents changes the current directory to the Documents folder.
+Example: cd .. moves up to the parent directory.
+ 
+
+4.	pwd - Prints the current working directory.
+
+
+5.	Touch - is used primarily to change the file timestamps—specifically, the access and modification times of a file or directory.
+
+  
+6.	Echo -  is a fundamental utility used to display lines of text or string values to the standard output, which is typically the terminal screen.
+
+
+7.	cat - Concatenates and displays files.
+Example: cat file.txt displays the contents of file.txt.
+
+8.	rm - Removes files or directories.
+Example: rm file.txt deletes the file.txt.
+ 
+
+9.	cp - Copies files or directories.
+Example: cp source.txt destination.txt copies source.txt to destination.txt.
+
+10.	grep - Searches for patterns in text.
+Example: grep "hello" file.txt searches for the word "hello" in file.txt.
